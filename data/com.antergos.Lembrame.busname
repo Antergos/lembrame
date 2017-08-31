@@ -1,0 +1,11 @@
+[Unit]
+# Optional
+Description=com.antergos.Lembrame
+# Optional (obviously)
+Documentation=https://antergos.com
+
+[BusName]
+# Optional
+Name=com.antergos.Lembrame
+# Optional
+Service=com.antergos.Lembrame.service

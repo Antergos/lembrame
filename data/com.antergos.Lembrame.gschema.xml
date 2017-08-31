@@ -1,0 +1,11 @@
+<schemalist gettext-domain="com.antergos.Lembrame">
+  <schema id="com.antergos.Lembrame" path="/com/antergos/Lembrame/">
+    <key name="show-exclamation-mark" type="b">
+      <default>true</default>
+      <summary>Show exclamation mark</summary>
+      <description>
+        Use the exclamation mark at the end of "Hello world".
+      </description>
+    </key>
+  </schema>
+</schemalist>

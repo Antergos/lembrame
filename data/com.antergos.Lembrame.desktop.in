@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Lembrame
+Comment=Antergos official settings synchronizer
+Icon=com.antergos.Lembrame
+Exec=gapplication launch com.antergos.Lembrame
+DBusActivatable=true
+StartupNotify=true
+Keywords=Productivity;

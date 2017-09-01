@@ -40,20 +40,23 @@ const Lang = imports.lang;
 const Util = imports.util;
 const Window = imports.window;
 
+// Our App Name
+const AppName = 'Lembrame';
+
 function initEnvironment() {
     window.getApp = function() {
         return Gio.Application.get_default();
     };
 }
 
-const MyApplication = new Lang.Class({
-    Name: 'MyApplication',
+const Lembrame = new Lang.Class({
+    Name: 'Lembrame',
     Extends: Gtk.Application,
 
     _init: function() {
         this.parent({ application_id: pkg.name });
 
-        GLib.set_application_name(_("My JS Application Pa"));
+        GLib.set_application_name(AppName);
     },
 
     _onQuit: function() {
@@ -62,7 +65,7 @@ const MyApplication = new Lang.Class({
 
     _initAppMenu: function() {
         let builder = new Gtk.Builder();
-        builder.add_from_resource('/com/example/Gtk/JSApplication/app-menu.ui');
+        builder.add_from_resource('/com/antergos/Lembrame/app-menu.ui');
 
         let menu = builder.get_object('app-menu');
         this.set_app_menu(menu);
@@ -71,14 +74,14 @@ const MyApplication = new Lang.Class({
     vfunc_startup: function() {
         this.parent();
 
-        Util.loadStyleSheet('/com/example/Gtk/JSApplication/application.css');
+        Util.loadStyleSheet('/com/antergos/Lembrame/application.css');
 
         Util.initActions(this,
                          [{ name: 'quit',
                             activate: this._onQuit }]);
         this._initAppMenu();
 
-        log(_("My JS Application started"));
+        log(_("Starting Lembrame"));
     },
 
     vfunc_activate: function() {
@@ -86,7 +89,7 @@ const MyApplication = new Lang.Class({
     },
 
     vfunc_shutdown: function() {
-        log(_("My JS Application exiting"));
+        log(_("Lembrame it's closing"));
 
         this.parent();
     }
@@ -95,5 +98,5 @@ const MyApplication = new Lang.Class({
 function main(argv) {
     initEnvironment();
 
-    return (new MyApplication()).run(argv);
+    return (new Lembrame()).run(argv);
 }

@@ -44,11 +44,12 @@ const MainView = new Lang.Class({
 		let greetingWidget = new Gtk.Label({
 			wrap: true,
 			label: _("Through this tool you will be able to save your current account "
-			+ "settings in the cloud and reuse them in a new installation. \n"
+			+ "settings in the cloud \nand reuse them in a new installation. \n"
 			+ "Click on the next button to save your environment and get your unique code. \n"
 			+ "You will then be asked this code in our installer, or you can even share "
-			+ "it with other people.\n\n")
+			+ "it with other \npeople.\n\n")
 		});
+		greetingWidget.set_ellipsize(3);
 		greetingWidget.set_max_width_chars(70);
 		greetingWidget.set_justify(Gtk.Justification.FILL);
 		greetingWidget.get_style_context().add_class('greeting-text');
@@ -64,8 +65,8 @@ const MainView = new Lang.Class({
     	let boxChild = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
 
 		// Add greeting widget and boxChild to the boxParent
-		boxImgText.pack_start(appLogo, false, false, 0);
-		boxImgText.pack_start(greetingWidget, false, false, 0);
+		boxImgText.pack_start(appLogo, false, false, 20);
+		boxImgText.pack_start(greetingWidget, false, false, 20);
 		boxParent.pack_start(boxImgText, false, false, 0);
 		boxParent.pack_start(boxChild, false, false, 0);
 

@@ -37,7 +37,8 @@ const MainView = new Lang.Class({
                                   halign: Gtk.Align.CENTER,
                                   valign: Gtk.Align.CENTER });
 
-		let appLogo = Util.loadImageFile('/com/antergos/Lembrame/logo.svg.png');
+		let appLogo = Util.loadImageFile('/com/antergos/Lembrame/icons/logo.svg');
+		appLogo.get_style_context().add_class('app-logo');
 
     	// Greeting Text Widget Initialization
 		let greetingWidget = new Gtk.Label({
@@ -48,21 +49,24 @@ const MainView = new Lang.Class({
 			+ "You will then be asked this code in our installer, or you can even share "
 			+ "it with other people.\n\n")
 		});
-		greetingWidget.set_max_width_chars(60);
+		greetingWidget.set_max_width_chars(70);
 		greetingWidget.set_justify(Gtk.Justification.FILL);
 		greetingWidget.get_style_context().add_class('greeting-text');
 
 		// Generation code button Initialization
 		let generateButton = new Gtk.Button({ label: _('Generate code') });
 		generateButton.connect('clicked', Lang.bind(this, this._generateCode));
+		generateButton.get_style_context().add_class('suggested-action');
 
 		// Internal separations between greeting text and the button
     	let boxParent = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL });
+    	let boxImgText = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
     	let boxChild = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
 
 		// Add greeting widget and boxChild to the boxParent
-		boxParent.pack_start(appLogo, false, false, 0);
-		boxParent.pack_start(greetingWidget, false, false, 0);
+		boxImgText.pack_start(appLogo, false, false, 0);
+		boxImgText.pack_start(greetingWidget, false, false, 0);
+		boxParent.pack_start(boxImgText, false, false, 0);
 		boxParent.pack_start(boxChild, false, false, 0);
 
 		// Add the button widget to the boxChild

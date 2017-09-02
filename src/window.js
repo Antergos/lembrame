@@ -42,7 +42,7 @@ const MainWindow = new Lang.Class({
 
     _init: function(params) {
         params = Params.fill(params, { title: GLib.get_application_name(),
-                                       default_width: 700,
+                                       default_width: 1000,
                                        default_height: 380 });
         this.parent(params);
 

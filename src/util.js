@@ -115,7 +115,5 @@ function loadIcon(iconName, size) {
 }
 
 function loadImageFile(resourceFile) {
-    let imgWidget = new Gtk.Image();
-    imgWidget.set_from_resource('resource://' + resourceFile);
-    return imgWidget;
+    return new Gtk.Image({ resource: resourceFile} );
 }

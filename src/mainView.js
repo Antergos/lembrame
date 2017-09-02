@@ -7,6 +7,10 @@ const Params = imports.params;
 
 const Util = imports.util;
 
+const userHome = GLib.get_home_dir();
+const cacheFolder = userHome + '/.cache/Lembrame/';
+const tmpFolder = cacheFolder + 'tmp/';
+
 const MainView = new Lang.Class({
     Name: 'MainView',
     Extends: Gtk.Stack,
@@ -72,25 +76,81 @@ const MainView = new Lang.Class({
     _generateCode: function() {
     	log('Starting generation...');
 
-		// Load tmp directory
-    	let destFolder = Gio.file_new_for_path('.cache/Lembrame/tmp');
+		this._createInitialFolders();
+
+		// Copy the files to the temporal directory
+		// TODO: Refactor this. Create a iterable file and make sure the file cp success and each element should be a class
+		// TODO: Are we going to need a progress bar here? Not sure, it should be pretty quick process for this kind of files
+
+		// Copy .bashrc
+		Gio.file_new_for_path(userHome + '/.bashrc').copy(Gio.file_new_for_path(tmpFolder + '.bashrc'), 1, null, null);
+		log('Copied .bashrc. Moving on.');
+
+		// Copy gnome-shell extension list
+		// Done with dconf because I think is easier to dump and load
+		let [resShell, outShell, errShell, statusShell] = GLib.spawn_command_line_sync('bash -c "dconf dump /org/gnome/shell/ > ' + tmpFolder + 'dconf_org_gnome_shell"');
+
+        if(statusShell === 0) {
+            log('Dumped org.gnome.shell schema. Moving on.');
+        } else {
+            log('Error trying to get Gnome Shell enabled extensions: ' + errShell);
+        }
+
+		// Copy the list of apps installed
+		// TODO: I don't see a way of saving just the packages with appdata information in a way that Cnchi knows which package name has to install
+		let [resPacman, outPacman, errPacman, statusPacman] = GLib.spawn_command_line_sync('bash -c "/usr/bin/pacman -Qe | cut -f 1 -d \' \' > ' + tmpFolder + 'pacman_package_list"');
+
+        if(statusPacman === 0) {
+            log('Dumped the list of explicitly installed packages from pacman. Moving on.');
+        } else {
+            log('Error trying to dump the explicitly installed packages from pacman: ' + errPacman);
+        }
+
+		// Copy desktop background
+		const backgroundSchema = Gio.Settings.new('org.gnome.desktop.background');
+		const background = Gio.file_new_for_uri(backgroundSchema.get_string('picture-uri'));
+		const backgroundPath = background.get_parse_name().split('/');
+		const backgroundName = backgroundPath[backgroundPath.length-1];
+		background.copy(Gio.file_new_for_path(tmpFolder + 'background/' + backgroundName), 1, null, null);
+		log('Copied Background. Moving on.');
+
+		// Copy screensaver background
+		const screensaverSchema = Gio.Settings.new('org.gnome.desktop.screensaver');
+		const screensaver = Gio.file_new_for_uri(screensaverSchema.get_string('picture-uri'));
+		const screensaverPath = screensaver.get_parse_name().split('/');
+		const screensaverName = screensaverPath[screensaverPath.length-1];
+		screensaver.copy(Gio.file_new_for_path(tmpFolder + 'screensaver/' + screensaverName), 1, null, null);
+		log('Copied Screensaver. Moving on.');
+
+		this._zipFolder();
+	},
+
+	_createInitialFolders: function() {
+		// TODO: Check if we succed and return that value
+  		// Load neccessary directories
+    	const destFolder = Gio.file_new_for_path(tmpFolder);
+    	const backgroundFolder = Gio.file_new_for_path(tmpFolder + '/background');
+    	const screensaverFolder = Gio.file_new_for_path(tmpFolder + '/screensaver');
 
 		// Remove the directory if already exists to clean up and create it blank
     	if( destFolder.query_exists(null) ) {
     		log('Temporal Directory already exists, cleaning up...');
     		destFolder.trash(null);
     	}
-    	log('Creating temporal directory now');
+    	log('Creating temporal directory now with its subdirectories');
     	destFolder.make_directory_with_parents(null);
+    	backgroundFolder.make_directory_with_parents(null);
+    	screensaverFolder.make_directory_with_parents(null);
+	},
 
-		// Copy the files to the temporal directory
-		// TODO: Refactor this. Create a iterable file and make sure the file cp success
-		// TODO: Are we going to need a progress bar here? Not sure, it should be pretty quick process for this kind of files
+	_zipFolder: function() {
+		log('bash -c "tar czf ' + cacheFolder + 'export.tar.gz -C ' + tmpFolder + '"');
+		let [res, out, err, status] = GLib.spawn_command_line_sync('bash -c "tar czf ' + cacheFolder + 'export.tar.gz -C ' + tmpFolder + ' ."');
 
-		// Copy .bashrc
-		Gio.file_new_for_path('.bashrc').copy(Gio.file_new_for_path('.cache/Lembrame/tmp/.bashrc'), 1, null, null);
-
-		// Copy gnome-shell extension list
-		// Copy the list of apps installed
-    }
+        if(status === 0) {
+            log('Files compressed. Prepared to upload.');
+        } else {
+            log('Error compressing the files: ' + err);
+        }
+	}
 });

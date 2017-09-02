@@ -3,18 +3,18 @@
   <id>com.antergos.Lembrame.desktop</id>
   <licence>CC0</licence>
   <description>
-    <_p>
+    <p>
       Antergos official tool to save your current settings like
       installed apps, extensions, themes etc, and allow you to reinstall
       your system with this data within our installer Cnchi.
-    </_p>
-    <_p>
+    </p>
+    <p>
 	Supported features:
-    </_p>
+    </p>
     <ul>
-      <_li>Save your current Gnome-Shell Extensions</_li>
-      <_li>Save your current Gnome-Shell Theme</_li>
-      <_li>Save your current Gnome-Shell config</_li>
+      <li>Save your current Gnome-Shell Extensions</li>
+      <li>Save your current Gnome-Shell Theme</li>
+      <li>Save your current Gnome-Shell config</li>
     </ul>
   </description>
   <screenshots>

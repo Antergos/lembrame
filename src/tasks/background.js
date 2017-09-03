@@ -3,6 +3,11 @@ const Lang = imports.lang;
 
 const Task = imports.task.Task;
 
+/**
+ * Copy the desktop background set in Gnome Desktop Schema
+ *
+ * @type {Lang.Class}
+ */
 const BackgroundTask = new Lang.Class({
     Name: 'BackgroundTask',
     Extends: Task,

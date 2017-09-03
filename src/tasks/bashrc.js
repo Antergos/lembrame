@@ -3,6 +3,11 @@ const Lang = imports.lang;
 
 const Task = imports.task.Task;
 
+/**
+ * Copy .bashrc located on the user home
+ *
+ * @type {Lang.Class}
+ */
 const BashrcTask = new Lang.Class({
     Name: 'BashrcTask',
     Extends: Task,

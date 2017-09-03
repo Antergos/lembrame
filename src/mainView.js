@@ -13,6 +13,11 @@ const userHome = GLib.get_home_dir();
 const cacheFolder = userHome + '/.cache/Lembrame/';
 const tmpFolder = cacheFolder + 'tmp/';
 
+/**
+ * Main view of the application.
+ *
+ * @type {Lang.Class}
+ */
 const MainView = new Lang.Class({
     Name: 'MainView',
     Extends: Gtk.Stack,

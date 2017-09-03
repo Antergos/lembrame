@@ -33,6 +33,11 @@ const Util = imports.util;
 
 const MainView = imports.mainView.MainView;
 
+/**
+ * General window and dialogs like About
+ *
+ * @type {Lang.Class}
+ */
 const MainWindow = new Lang.Class({
     Name: 'MainWindow',
     Extends: Gtk.ApplicationWindow,

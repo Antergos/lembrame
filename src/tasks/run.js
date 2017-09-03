@@ -10,6 +10,14 @@ const BashrcTask = imports.tasks.bashrc.BashrcTask;
 const GnomeShellTask = imports.tasks.gnomeShell.GnomeShellTask;
 const PacmanTask = imports.tasks.pacman.PacmanTask;
 
+
+/**
+ * Task manager run when user generates the code.
+ * Creates the initial folder and manage to zip the result to send it to
+ * the webservice
+ *
+ * @type {Lang.Class}
+ */
 const RunTask = new Lang.Class({
     Name: 'RunTask',
     Extends: Task,

@@ -4,8 +4,12 @@ const Lang = imports.lang;
 const Task = imports.task.Task;
 
 /**
+ * Copy Gnome Shell Schema (enabled-extensions, favorite-apps etc)
+ *
  * I did this with dconf terminal command because I think is easier to
  * dump and load this way than reading the actual schema with Gio
+ *
+ * @type {Lang.Class}
  */
 const GnomeShellTask = new Lang.Class({
     Name: 'GnomeShellTask',

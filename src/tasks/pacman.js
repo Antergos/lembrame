@@ -4,9 +4,12 @@ const Lang = imports.lang;
 const Task = imports.task.Task;
 
 /**
- * Dumped explicitly installed packages.
+ * Dump explicitly installed packages.
+ *
  * I don't see a way of saving just the packages with appdata information in a way
  * that Cnchi knows which package name has to install.
+ *
+ * @type {Lang.Class}
  */
 const PacmanTask = new Lang.Class({
     Name: 'PacmanTask',

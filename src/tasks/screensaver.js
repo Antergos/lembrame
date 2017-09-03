@@ -3,6 +3,12 @@ const Lang = imports.lang;
 
 const Task = imports.task.Task;
 
+
+/**
+ * Copy the screensaver background saved in Gnome Desktop schema
+ *
+ * @type {Lang.Class}
+ */
 const ScreensaverTask = new Lang.Class({
     Name: 'ScreensaverTask',
     Extends: Task,

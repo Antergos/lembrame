@@ -25,7 +25,6 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 const GLib = imports.gi.GLib;
-const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Params = imports.params;
@@ -40,15 +39,19 @@ const MainWindow = new Lang.Class({
     Template: 'resource:///com/antergos/Lembrame/main.ui',
     Children: ['main-grid'],
 
-    _init: function(params) {
-        params = Params.fill(params, { title: GLib.get_application_name(),
-                                       default_width: 955,
-                                       default_height: 335 });
+    _init: function (params) {
+        params = Params.fill(params, {
+            title: GLib.get_application_name(),
+            default_width: 955,
+            default_height: 335
+        });
         this.parent(params);
 
         Util.initActions(this,
-                         [{ name: 'about',
-                            activate: this._about }]);
+            [{
+                name: 'about',
+                activate: this._about
+            }]);
 
         this._view = new MainView();
         this.main_grid.add(this._view);
@@ -56,24 +59,25 @@ const MainWindow = new Lang.Class({
 
     },
 
-    _about: function() {
+    _about: function () {
         let aboutDialog = new Gtk.AboutDialog(
-            { authors: [ 'Alexandre Filgueira <alexfilgueira@antergos.com>' ],
-              translator_credits: _("translator-credits"),
-              program_name: _("Lembrame"),
-              comments: _("Antergos official tool to synchronize settings"),
-              copyright: 'Copyright 2017 - Antergos',
-              license_type: Gtk.License.GPL_2_0,
-              logo_icon_name: 'com.antergos.Lembrame',
-              version: pkg.version,
-              website: 'https://antergos.com/',
-              wrap_license: true,
-              modal: true,
-              transient_for: this
+            {
+                authors: ['Alexandre Filgueira <alexfilgueira@antergos.com>'],
+                translator_credits: _("translator-credits"),
+                program_name: _("Lembrame"),
+                comments: _("Antergos official tool to synchronize settings"),
+                copyright: 'Copyright 2017 - Antergos',
+                license_type: Gtk.License.GPL_2_0,
+                logo_icon_name: 'com.antergos.Lembrame',
+                version: pkg.version,
+                website: 'https://antergos.com/',
+                wrap_license: true,
+                modal: true,
+                transient_for: this
             });
 
         aboutDialog.show();
-        aboutDialog.connect('response', function() {
+        aboutDialog.connect('response', function () {
             aboutDialog.destroy();
         });
     },

@@ -26,11 +26,13 @@
 
 pkg.initGettext();
 pkg.initFormat();
-pkg.require({ 'Gdk': '3.0',
-              'Gio': '2.0',
-              'GLib': '2.0',
-              'GObject': '2.0',
-              'Gtk': '3.0' });
+pkg.require({
+    'Gdk': '3.0',
+    'Gio': '2.0',
+    'GLib': '2.0',
+    'GObject': '2.0',
+    'Gtk': '3.0'
+});
 
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
@@ -44,7 +46,7 @@ const Window = imports.window;
 const AppName = 'Lembrame';
 
 function initEnvironment() {
-    window.getApp = function() {
+    window.getApp = function () {
         return Gio.Application.get_default();
     };
 }
@@ -53,17 +55,17 @@ const Lembrame = new Lang.Class({
     Name: 'Lembrame',
     Extends: Gtk.Application,
 
-    _init: function() {
-        this.parent({ application_id: pkg.name });
+    _init: function () {
+        this.parent({application_id: pkg.name});
 
         GLib.set_application_name(AppName);
     },
 
-    _onQuit: function() {
+    _onQuit: function () {
         this.quit();
     },
 
-    _initAppMenu: function() {
+    _initAppMenu: function () {
         let builder = new Gtk.Builder();
         builder.add_from_resource('/com/antergos/Lembrame/app-menu.ui');
 
@@ -71,24 +73,26 @@ const Lembrame = new Lang.Class({
         this.set_app_menu(menu);
     },
 
-    vfunc_startup: function() {
+    vfunc_startup: function () {
         this.parent();
 
         Util.loadStyleSheet('/com/antergos/Lembrame/application.css');
 
         Util.initActions(this,
-                         [{ name: 'quit',
-                            activate: this._onQuit }]);
+            [{
+                name: 'quit',
+                activate: this._onQuit
+            }]);
         this._initAppMenu();
 
         log(_("Starting Lembrame"));
     },
 
-    vfunc_activate: function() {
-        (new Window.MainWindow({ application: this })).show();
+    vfunc_activate: function () {
+        (new Window.MainWindow({application: this})).show();
     },
 
-    vfunc_shutdown: function() {
+    vfunc_shutdown: function () {
         log(_("Lembrame it's closing"));
 
         this.parent();

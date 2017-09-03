@@ -26,7 +26,6 @@
 
 const Gdk = imports.gi.Gdk;
 const Gio = imports.gi.Gio;
-const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Params = imports.params;
@@ -48,15 +47,17 @@ function loadStyleSheet(resource) {
     let provider = new Gtk.CssProvider();
     provider.load_from_file(Gio.File.new_for_uri('resource://' + resource));
     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
-                                             provider,
-                                             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 function initActions(actionMap, simpleActionEntries, context) {
-    simpleActionEntries.forEach(function(entry) {
-        let filtered = Params.filter(entry, { activate: null,
-                                              change_state: null,
-                                              context: null });
+    simpleActionEntries.forEach(function (entry) {
+        let filtered = Params.filter(entry, {
+            activate: null,
+            change_state: null,
+            context: null
+        });
         let action = new Gio.SimpleAction(entry);
 
         let context = filtered.context || actionMap;
@@ -87,8 +88,8 @@ function getSettings(schemaId, path) {
     if (!pkg.moduledir.startsWith('resource://')) {
         // Running from the source tree
         schemaSource = GioSSS.new_from_directory(pkg.pkgdatadir,
-                                                 GioSSS.get_default(),
-                                                 false);
+            GioSSS.get_default(),
+            false);
     } else {
         schemaSource = GioSSS.get_default();
     }
@@ -100,20 +101,22 @@ function getSettings(schemaId, path) {
     }
 
     if (path === undefined)
-        return new Gio.Settings({ settings_schema: schemaObj });
+        return new Gio.Settings({settings_schema: schemaObj});
     else
-        return new Gio.Settings({ settings_schema: schemaObj,
-                                  path: path });
+        return new Gio.Settings({
+            settings_schema: schemaObj,
+            path: path
+        });
 }
 
 function loadIcon(iconName, size) {
     let theme = Gtk.IconTheme.get_default();
 
     return theme.load_icon(iconName,
-                           size,
-                           Gtk.IconLookupFlags.GENERIC_FALLBACK);
+        size,
+        Gtk.IconLookupFlags.GENERIC_FALLBACK);
 }
 
 function loadImageFile(resourceFile) {
-    return new Gtk.Image({ resource: resourceFile} );
+    return new Gtk.Image({resource: resourceFile});
 }

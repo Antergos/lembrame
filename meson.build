@@ -22,6 +22,8 @@ add_global_arguments([
   '-I' + meson.build_root(),
 ], language: 'c')
 
+python_dep = dependency('python3', version : '>= 3.3')
+
 app_configuration = configuration_data()
 
 app_configuration.set('GJS', find_program('gjs').path())
@@ -34,6 +36,9 @@ app_configuration.set('libdir', join_paths(get_option('prefix'), get_option('lib
 app_configuration.set('pkgdatadir', pkgdatadir)
 
 
+
+
 subdir('src')
 subdir('data')
 subdir('po')
+subdir('lib')

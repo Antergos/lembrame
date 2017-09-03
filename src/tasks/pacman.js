@@ -24,7 +24,7 @@ const PacmanTask = new Lang.Class({
     },
 
     _sync: function () {
-        let [res, out, err, status] = this._runCommand();
+        let [res, out, err, status] = this._runCommand(this.cmd);
 
         if (status === 0) {
             log('Dumped the list of explicitly installed packages from pacman. Moving on.');

@@ -22,10 +22,8 @@ const Task = new Lang.Class({
     },
 
     _runCommand: function (cmd) {
-        if (typeof this.cmd === 'undefined') {
-            this.cmd = cmd;
-        }
+        log('Running: ' + cmd);
 
-        return GLib.spawn_command_line_sync(this.cmd);
+        return GLib.spawn_command_line_sync(cmd);
     }
 });

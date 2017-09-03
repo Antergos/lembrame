@@ -2,6 +2,13 @@
 Antergos official tool to save your current settings like installed apps, extensions, themes etc,
 and allow you to reinstall your system with this data within our installer Cnchi.
 
+### Dependencies
+
+* Gjs (Main language)
+* Gnome Shell >= 3.24
+* Python >= 3.3 (encryption script)
+* Libnacl # python-libnacl # (https://github.com/saltstack/libnacl) (libsodium wrapper - encryption - python library)
+
 ### What it will begin doing
 
 * Starting just with Gnome in mind. Add more enviroments later.

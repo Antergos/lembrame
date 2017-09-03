@@ -109,6 +109,7 @@ function getSettings(schemaId, path) {
         });
 }
 
+
 function loadIcon(iconName, size) {
     let theme = Gtk.IconTheme.get_default();
 

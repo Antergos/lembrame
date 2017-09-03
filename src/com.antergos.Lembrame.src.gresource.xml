@@ -6,5 +6,12 @@
     <file>util.js</file>
     <file>window.js</file>
     <file>mainView.js</file>
+		<file>task.js</file>
+		<file>tasks/run.js</file>
+		<file>tasks/background.js</file>
+		<file>tasks/screensaver.js</file>
+		<file>tasks/bashrc.js</file>
+		<file>tasks/gnomeShell.js</file>
+		<file>tasks/pacman.js</file>
   </gresource>
 </gresources>

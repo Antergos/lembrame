@@ -9,10 +9,6 @@ const Util = imports.util;
 // Import Initial Task
 const RunTask = imports.tasks.run.RunTask;
 
-const userHome = GLib.get_home_dir();
-const cacheFolder = userHome + '/.cache/Lembrame/';
-const tmpFolder = cacheFolder + 'tmp/';
-
 /**
  * Main view of the application.
  *
@@ -31,12 +27,25 @@ const MainView = new Lang.Class({
 
         this._settings = Util.getSettings(pkg.name);
 
+        // Load app pages
+        this._generatorPage();
+        this.codeHolder = this._yourCodePage();
+
+        // Set visible the correct page on start
+        this._setView();
+
+    },
+
+    _setView: function () {
         /**
          * Check if the unique code was already generated and
          * load the appropiate view.
          */
         if (this._settings.get_string('code-generated') === '') {
-            this._generatorPage();
+            this.visible_child_name = 'non_generated_view';
+        } else {
+            this.codeHolder.set_label(this._settings.get_string('code-generated'));
+            this.visible_child_name = 'yourcode_view';
         }
     },
 
@@ -86,12 +95,51 @@ const MainView = new Lang.Class({
 
         // Add everything to the grid and put it on the Stack
         grid.add(boxParent);
-        this.add_named(grid, 'non-generated-view');
+        grid.show_all();
+
+        this.add_named(grid, 'non_generated_view');
     },
 
     _generateCode: function () {
         log('Starting generation...');
 
         let runTask = new RunTask();
+
+        this.codeHolder.set_label(this._settings.get_string('code-generated'));
+        this.visible_child_name = 'yourcode_view';
+    },
+
+    _yourCodePage: function () {
+        // Page Grid Initialization
+        let grid = new Gtk.Grid({
+            orientation: Gtk.Orientation.VERTICAL,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER
+        });
+
+        let yourCodeMessageWidget = new Gtk.Label({
+            wrap: true,
+            label: _('This is your code. Use it on your next installation, or share it.')
+        });
+        yourCodeMessageWidget.set_ellipsize(3);
+        yourCodeMessageWidget.set_max_width_chars(70);
+        yourCodeMessageWidget.set_justify(Gtk.Justification.FILL);
+
+        let yourCodeWidget = new Gtk.Label({
+            wrap: true,
+            label: ''
+        });
+        yourCodeWidget.set_ellipsize(3);
+        yourCodeWidget.set_selectable(true);
+        yourCodeWidget.set_max_width_chars(70);
+        yourCodeWidget.set_justify(Gtk.Justification.FILL);
+        yourCodeWidget.get_style_context().add_class('yourcode-text');
+
+        grid.add(yourCodeMessageWidget);
+        grid.add(yourCodeWidget);
+        grid.show_all();
+
+        this.add_named(grid, 'yourcode_view');
+        return yourCodeWidget;
     }
 });

@@ -26,6 +26,7 @@
 
 const Gdk = imports.gi.Gdk;
 const Gio = imports.gi.Gio;
+const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const Params = imports.params;
@@ -120,4 +121,12 @@ function loadIcon(iconName, size) {
 
 function loadImageFile(resourceFile) {
     return new Gtk.Image({resource: resourceFile});
+}
+
+function generateUserID() {
+    const userID = GLib.random_int() + '-' + GLib.random_int() + '-' + GLib.random_int();
+    const settings = getSettings(pkg.name);
+
+    settings.set_string('id-generated', userID);
+    return userID;
 }

@@ -1,4 +1,3 @@
-const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
@@ -27,6 +26,9 @@ const MainView = new Lang.Class({
 
         this._settings = Util.getSettings(pkg.name);
 
+        // Check if we have an User ID already. Generate it otherwise.
+        this.userID = this._checkUserID();
+
         // Load app pages
         this._generatorPage();
         this.codeHolder = this._yourCodePage();
@@ -34,6 +36,20 @@ const MainView = new Lang.Class({
         // Set visible the correct page on start
         this._setView();
 
+    },
+
+    _checkUserID: function () {
+    	let userID = null;
+
+    	if (this._settings.get_string('id-generated') === '') {
+    		log('User ID not found. Generating now.');
+            userID = Util.generateUserID();
+        } else {
+        	log('User ID found. Keep going.');
+            userID = this._settings.get_string('id-generated')
+        }
+
+        return userID;
     },
 
     _setView: function () {

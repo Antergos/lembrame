@@ -1,5 +1,14 @@
 <schemalist gettext-domain="com.antergos.Lembrame">
     <schema id="com.antergos.Lembrame" path="/com/antergos/Lembrame/">
+	    <key name="id-generated" type="s">
+            <default>""</default>
+            <summary>User ID</summary>
+            <description>
+                This ID identifies your machine in the Antergos Cloud. All your sync uploads will be organized with it in our servers, and
+				all the content within will be encrypted with the unique code generated each time, allow us tu find your content without
+				knowing your unique codes.
+            </description>
+        </key>
         <key name="code-generated" type="s">
             <default>""</default>
             <summary>Unique Code</summary>

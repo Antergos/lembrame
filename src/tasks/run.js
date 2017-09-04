@@ -3,6 +3,7 @@ const Lang = imports.lang;
 
 const Task = imports.task.Task;
 const Util = imports.util;
+const Upload = imports.upload.Upload;
 
 // Import tasks
 const BackgroundTask = imports.tasks.background.BackgroundTask;
@@ -65,6 +66,7 @@ const RunTask = new Lang.Class({
 
         if (status === 0) {
             log('Files compressed. Moving on.');
+            // Encrypt now
             this._encrypt();
         } else {
             log('Error compressing the files: ' + err);
@@ -78,6 +80,9 @@ const RunTask = new Lang.Class({
         if (status === 0 && err.toString() === '') {
             this._saveUniqueCode(out.toString().replace(/\n/gm, ''));
             log('Files encrypted. Prepared to upload.');
+
+            // Upload now.
+            this._upload();
         } else {
             log('Error encrypting the files: ' + err);
         }
@@ -87,6 +92,10 @@ const RunTask = new Lang.Class({
         // TODO: Commenting this line for developing purposes
         this._settings.set_string('code-generated', uniqueCode);
         log('Unique code saved: ' + uniqueCode);
+    },
+
+    _upload: function () {
+    	let uploadResult = new Upload(this.cacheFolder + 'export.tar.gz.encrypted');
     },
 
     _cleanup: function () {

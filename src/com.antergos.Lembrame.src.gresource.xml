@@ -6,6 +6,7 @@
         <file>util.js</file>
         <file>window.js</file>
         <file>mainView.js</file>
+        <file>upload.js</file>
         <file>task.js</file>
         <file>tasks/run.js</file>
         <file>tasks/background.js</file>

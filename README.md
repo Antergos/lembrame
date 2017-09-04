@@ -23,6 +23,12 @@ and allow you to reinstall your system with this data within our installer Cnchi
 * Generate an unique code
 * Upload to a webservice in Antergos servers
 
+### Big TODO's
+* Ensure that all tasks are completed as expected
+* Do not block the main thread while executing the tasks
+* Show a pulsed progress bar for the point before
+* Show the last screen with the unique code only when the upload completes and everything is OK
+
 ### What would be the perfect evolution for this
 
 * Creation of an Antergos account where this tool can sync all this content frequently. Everything with client side encryption

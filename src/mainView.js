@@ -81,9 +81,9 @@ const MainView = new Lang.Class({
             wrap: true,
             label: _("Through this tool you will be able to save your current account "
                 + "settings in the cloud \nand reuse them in a new installation. \n"
-                + "Click on the next button to save your environment and get your unique code. \n"
-                + "You will then be asked this code in our installer, or you can even share "
-                + "it with other \npeople.\n\n")
+                + "Click on the next button to save your environment and get your userID and unique code. \n"
+                + "You will then be asked this parameters in our installer, or you can even share "
+                + "it with \nother people.\n\n")
         });
         greetingWidget.set_ellipsize(3);
         greetingWidget.set_max_width_chars(70);
@@ -133,9 +133,28 @@ const MainView = new Lang.Class({
             valign: Gtk.Align.CENTER
         });
 
+        let yourIDMessageWidget = new Gtk.Label({
+            wrap: true,
+            label: _('Your UserID:')
+        });
+        yourIDMessageWidget.set_ellipsize(3);
+        yourIDMessageWidget.set_max_width_chars(70);
+        yourIDMessageWidget.set_justify(Gtk.Justification.FILL);
+
+        let yourIDWidget = new Gtk.Label({
+            wrap: true,
+            label: this._settings.get_string('id-generated')
+        });
+        yourIDWidget.set_ellipsize(3);
+        yourIDWidget.set_selectable(true);
+        yourIDWidget.set_max_width_chars(70);
+        yourIDWidget.set_justify(Gtk.Justification.FILL);
+        yourIDWidget.get_style_context().add_class('yourcode-text');
+
+
         let yourCodeMessageWidget = new Gtk.Label({
             wrap: true,
-            label: _('This is your code. Use it on your next installation, or share it.')
+            label: _('Your upload code:')
         });
         yourCodeMessageWidget.set_ellipsize(3);
         yourCodeMessageWidget.set_max_width_chars(70);
@@ -151,6 +170,8 @@ const MainView = new Lang.Class({
         yourCodeWidget.set_justify(Gtk.Justification.FILL);
         yourCodeWidget.get_style_context().add_class('yourcode-text');
 
+		grid.add(yourIDMessageWidget);
+		grid.add(yourIDWidget);
         grid.add(yourCodeMessageWidget);
         grid.add(yourCodeWidget);
         grid.show_all();

@@ -1,5 +1,6 @@
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
+const Signals = imports.signals;
 
 const Task = imports.task.Task;
 const Util = imports.util;
@@ -11,6 +12,7 @@ const ScreensaverTask = imports.tasks.screensaver.ScreensaverTask;
 const BashrcTask = imports.tasks.bashrc.BashrcTask;
 const GnomeShellTask = imports.tasks.gnomeShell.GnomeShellTask;
 const PacmanTask = imports.tasks.pacman.PacmanTask;
+const GnomeShellThemeTask = imports.tasks.gnomeShellTheme.GnomeShellThemeTask;
 
 
 /**
@@ -31,7 +33,7 @@ const RunTask = new Lang.Class({
 
         this._createInitialFolders();
 
-        // TODO: read from config file, which tasks to run to clean up code
+        // TODO: read from config file or gsettings which tasks to run to clean up code
         // Copy .bashrc
         let bashrcTask = new BashrcTask();
 
@@ -46,6 +48,9 @@ const RunTask = new Lang.Class({
 
         // Copy screensaver background
         let screensaverTask = new ScreensaverTask();
+
+        // Copy gnome-shell theme
+        let gnomeShellThemeTask = new GnomeShellThemeTask();
 
         this._zipFolder();
     },
@@ -89,13 +94,17 @@ const RunTask = new Lang.Class({
     },
 
     _saveUniqueCode: function (uniqueCode) {
-        // TODO: Commenting this line for developing purposes
+        // Comment this line for developing purposes
         this._settings.set_string('code-generated', uniqueCode);
         log('Unique code saved: ' + uniqueCode);
     },
 
     _upload: function () {
-    	let uploadResult = new Upload(this.cacheFolder + 'export.tar.gz.encrypted');
+        this.uploader = new Upload(this.cacheFolder + 'export.tar.gz.encrypted');
+    },
+
+    getUploader: function () {
+        return this.uploader;
     },
 
     _cleanup: function () {

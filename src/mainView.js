@@ -32,6 +32,7 @@ const MainView = new Lang.Class({
         // Load app pages
         this._generatorPage();
         this.codeHolder = this._yourCodePage();
+        this._progressView();
 
         // Set visible the correct page on start
         this._setView();
@@ -116,15 +117,6 @@ const MainView = new Lang.Class({
         this.add_named(grid, 'non_generated_view');
     },
 
-    _generateCode: function () {
-        log('Starting generation...');
-
-        let runTask = new RunTask();
-
-        this.codeHolder.set_label(this._settings.get_string('code-generated'));
-        this.visible_child_name = 'yourcode_view';
-    },
-
     _yourCodePage: function () {
         // Page Grid Initialization
         let grid = new Gtk.Grid({
@@ -178,5 +170,57 @@ const MainView = new Lang.Class({
 
         this.add_named(grid, 'yourcode_view');
         return yourCodeWidget;
+    },
+
+    _progressView: function () {
+        // Page Grid Initialization
+        let grid = new Gtk.Grid({
+            orientation: Gtk.Orientation.VERTICAL,
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER
+        });
+
+        let pageTitle = new Gtk.Label({
+            wrap: true,
+            label: _('Uploading. Please wait.')
+        });
+        pageTitle.set_ellipsize(3);
+        pageTitle.set_max_width_chars(70);
+        pageTitle.set_justify(Gtk.Justification.FILL);
+
+        this.progressBar = new Gtk.ProgressBar();
+
+        grid.add(pageTitle);
+        grid.add(this.progressBar);
+        grid.show_all();
+
+        this.add_named(grid, 'progress_view');
+    },
+
+    _generateCode: function () {
+        log('Starting generation...');
+
+        this.visible_child_name = 'progress_view';
+
+        let runTask = new RunTask();
+        let uploader = runTask.getUploader();
+
+        uploader.connect('done',
+            function(obj, data) {
+                log(data);
+                this.codeHolder.set_label(this._settings.get_string('code-generated'));
+                this.visible_child_name = 'yourcode_view';
+            }.bind(this)
+        );
+
+        uploader.connect('progress',
+            function (obj, bytes, total) {
+                this._updateProgressBar(bytes, total);
+            }.bind(this)
+        );
+    },
+
+    _updateProgressBar: function (bytes, total) {
+        this.progressBar.set_fraction(bytes / total);
     }
 });

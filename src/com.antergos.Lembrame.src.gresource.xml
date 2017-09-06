@@ -14,5 +14,6 @@
         <file>tasks/bashrc.js</file>
         <file>tasks/gnomeShell.js</file>
         <file>tasks/pacman.js</file>
+        <file>tasks/gnomeShellTheme.js</file>
     </gresource>
 </gresources>

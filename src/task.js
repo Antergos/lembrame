@@ -15,6 +15,7 @@ const Task = new Lang.Class({
     _createFolder: function (folderName) {
         const folder = Gio.file_new_for_path(this.tmpFolder + folderName);
         folder.make_directory_with_parents(null);
+        return this.tmpFolder + folderName;
     },
 
     _getSchema: function () {

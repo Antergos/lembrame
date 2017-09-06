@@ -1,6 +1,7 @@
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 const Soup = imports.gi.Soup;
+const Signals = imports.signals;
 
 const Util = imports.util;
 
@@ -65,13 +66,23 @@ const Upload = new Lang.Class({
                 return;
             }
 
+            let signalProgress = message.connect(
+                "wrote-body-data",
+                Lang.bind(this, function (message, buffer) {
+                    uploaded += buffer.length;
+                    this.emit("progress", uploaded, total);
+                })
+            );
+
+			log('Uploading now.');
             Soup.Session.prototype.add_feature.call(
                 _session, new Soup.ProxyResolverDefault()
             );
             _session.queue_message(message,
                 Lang.bind(this, function (session, {status_code, response_body}) {
                     if (status_code === 200) {
-                        log(response_body.data);
+                        log('Finished Uploading. Letting the progress view know.');
+                        this.emit('done', response_body.data);
                     } else {
                         log('getJSON error status code: ' + status_code);
                         log('getJSON error response: ' + response_body.data);
@@ -87,7 +98,11 @@ const Upload = new Lang.Class({
 
                         log("HTTP " + status_code + " - " + errorMessage);
                     }
+
+                    message.disconnect(signalProgress);
                 }));
         }));
     }
 });
+
+Signals.addSignalMethods(Upload.prototype);

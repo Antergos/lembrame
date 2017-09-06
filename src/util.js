@@ -130,3 +130,12 @@ function generateUserID() {
     settings.set_string('id-generated', userID);
     return userID;
 }
+
+function dirExists(path) {
+    return Gio.file_new_for_path(path).query_exists(null);
+}
+
+function writeToFile(content, filePath) {
+    let file = Gio.file_new_for_path(filePath);
+    file.replace_contents(content, null, false, 2, null);
+}

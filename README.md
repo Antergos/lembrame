@@ -8,26 +8,29 @@ and allow you to reinstall your system with this data within our installer Cnchi
 * Gnome Shell >= 3.24
 * Python >= 3.3 (encryption script)
 * Libnacl # python-libnacl # (https://github.com/saltstack/libnacl) (libsodium wrapper - encryption - python library)
+* DConf
 
 ### What it will begin doing
 
 * Starting just with Gnome in mind. Add more enviroments later.
-* Sync your .bashrc
-* Sync your org.gnome.schell schema (enabled-extensions, favorite-apps, extension settings)
-* Sync your Shell theme
+* *[Done]* Sync your .bashrc
+* *[Done]* Sync your org.gnome.schell schema (enabled-extensions, favorite-apps, extension settings)
+* *[Done]* Sync your Shell theme
 * Sync your icon theme
-* Sync your desktop background
-* Sync your screensaver background (gdm)
-* Sync your explicitly installed packages (pacman)
-* Zip and encrypt all the previous files (libsodium?)
-* Generate an unique code
-* Upload to a webservice in Antergos servers
+* *[Done]* Sync your desktop background
+* *[Done]* Sync your screensaver background (gdm)
+* *[Done]* Sync your explicitly installed packages (pacman)
+* *[Done]* Zip and encrypt all the previous files (libsodium?)
+* *[Done]* Generate an unique code
+* *[Done but waiting for the real service]* Upload to a webservice in Antergos servers
 
 ### Big TODO's
 * Ensure that all tasks are completed as expected
 * Do not block the main thread while executing the tasks
 * Show a pulsed progress bar for the point before
-* Show the last screen with the unique code only when the upload completes and everything is OK
+* ~~Show the last screen with the unique code only when the upload completes and everything is OK~~
+* Allow to send your userID and unique code to your email
+* Allow to re-do the sync
 
 ### What would be the perfect evolution for this
 

@@ -16,7 +16,8 @@ and allow you to reinstall your system with this data within our installer Cnchi
 * *[Done]* Sync your .bashrc
 * *[Done]* Sync your org.gnome.schell schema (enabled-extensions, favorite-apps, extension settings)
 * *[Done]* Sync your Shell theme
-* Sync your icon theme
+* *[Done]* Sync your icon theme
+* *[Done]* Sync your GTK theme
 * *[Done]* Sync your desktop background
 * *[Done]* Sync your screensaver background (gdm)
 * *[Done]* Sync your explicitly installed packages (pacman)

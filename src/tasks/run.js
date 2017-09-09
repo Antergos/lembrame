@@ -13,6 +13,8 @@ const BashrcTask = imports.tasks.bashrc.BashrcTask;
 const GnomeShellTask = imports.tasks.gnomeShell.GnomeShellTask;
 const PacmanTask = imports.tasks.pacman.PacmanTask;
 const GnomeShellThemeTask = imports.tasks.gnomeShellTheme.GnomeShellThemeTask;
+const GtkThemeTask = imports.tasks.gtkTheme.GtkThemeTask;
+const IconsThemeTask = imports.tasks.iconsTheme.IconsThemeTask;
 
 
 /**
@@ -51,6 +53,12 @@ const RunTask = new Lang.Class({
 
         // Copy gnome-shell theme
         let gnomeShellThemeTask = new GnomeShellThemeTask();
+
+        // Copy GTK theme
+        let gtkThemeTask = new GtkThemeTask();
+
+        // Copy Icons theme
+        let iconsThemeTask = new IconsThemeTask();
 
         this._zipFolder();
     },

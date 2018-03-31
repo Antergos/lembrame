@@ -123,12 +123,16 @@ function loadImageFile(resourceFile) {
     return new Gtk.Image({resource: resourceFile});
 }
 
-function generateUserID() {
-    const userID = GLib.random_int() + '-' + GLib.random_int() + '-' + GLib.random_int();
+function checkUserID() {
     const settings = getSettings(pkg.name);
 
-    settings.set_string('id-generated', userID);
-    return userID;
+    return settings.get_string('id-generated');
+}
+
+function saveUserID(UID) {
+    const settings = getSettings(pkg.name);
+
+    return settings.set_string('id-generated', UID);
 }
 
 function dirExists(path) {

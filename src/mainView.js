@@ -26,31 +26,14 @@ const MainView = new Lang.Class({
 
         this._settings = Util.getSettings(pkg.name);
 
-        // Check if we have an User ID already. Generate it otherwise.
-        this.userID = this._checkUserID();
-
         // Load app pages
         this._generatorPage();
-        this.codeHolder = this._yourCodePage();
+        this._yourCodePage();
         this._progressView();
 
         // Set visible the correct page on start
         this._setView();
 
-    },
-
-    _checkUserID: function () {
-    	let userID = null;
-
-    	if (this._settings.get_string('id-generated') === '') {
-    		log('User ID not found. Generating now.');
-            userID = Util.generateUserID();
-        } else {
-        	log('User ID found. Keep going.');
-            userID = this._settings.get_string('id-generated')
-        }
-
-        return userID;
     },
 
     _setView: function () {
@@ -168,6 +151,10 @@ const MainView = new Lang.Class({
         grid.add(yourCodeWidget);
         grid.show_all();
 
+        // Set available for change
+        this.uidHolder = yourIDWidget;
+        this.codeHolder = yourCodeWidget;
+
         this.add_named(grid, 'yourcode_view');
         return yourCodeWidget;
     },
@@ -207,7 +194,7 @@ const MainView = new Lang.Class({
 
         uploader.connect('done',
             function(obj, data) {
-                log(data);
+                this.uidHolder.set_label(data);
                 this.codeHolder.set_label(this._settings.get_string('code-generated'));
                 this.visible_child_name = 'yourcode_view';
             }.bind(this)

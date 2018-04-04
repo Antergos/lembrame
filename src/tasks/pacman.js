@@ -24,17 +24,29 @@ const PacmanTask = new Lang.Class({
     _sync: function () {
         // We're going to need both the installed packages and the pacman config because user could have custom repos
         this._savePackageList();
+        this._saveAURPackageList();
         this._savePacmanConfig();
     },
 
     _savePackageList: function () {
-        let cmd = 'bash -c "/usr/bin/pacman -Qe | cut -f 1 -d \' \' > ' + this.tmpFolder + 'pacman_package_list"';
+        let cmd = 'bash -c "/usr/bin/pacman -Qqttn > ' + this.tmpFolder + 'pacman_package_list"';
         let [res, out, err, status] = this._runCommand(cmd);
 
         if (status === 0) {
             log('Dumped the list of explicitly installed packages from pacman. Moving on.');
         } else {
             log('Error trying to dump the explicitly installed packages from pacman: ' + err);
+        }
+    },
+
+    _saveAURPackageList: function () {
+        let cmd = 'bash -c "/usr/bin/pacman -Qqm > ' + this.tmpFolder + 'aur_package_list"';
+        let [res, out, err, status] = this._runCommand(cmd);
+
+        if (status === 0) {
+            log('Dumped the list of AUR installed packages. Moving on.');
+        } else {
+            log('Error trying to dump the AUR installed packages: ' + err);
         }
     },
 

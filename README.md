@@ -21,9 +21,9 @@ and allow you to reinstall your system with this data within our installer Cnchi
 * *[Done]* Sync your desktop background
 * *[Done]* Sync your screensaver background (gdm)
 * *[Done]* Sync your explicitly installed packages (pacman)
-* *[Done]* Zip and encrypt all the previous files (libsodium?)
+* *[Done]* Zip and encrypt all the previous files (libsodium)
 * *[Done]* Generate an unique code
-* *[Done but waiting for the real service]* Upload to a webservice in Antergos servers
+* *[Done]* Upload to a webservice in Antergos servers
 
 ### Big TODO's
 * Ensure that all tasks are completed as expected
@@ -44,6 +44,16 @@ and allow you to reinstall your system with this data within our installer Cnchi
 * Cnchi (Antergos installer) would ask you if you want to configure your installation with your Antergos account.
 * Modify our login system to allow Antergos account sign in "Windows 10 style" (not sure if 100% possible)
 * I guess we would have to charge for this service to pay the servers. At least for some of the features.
+
+### Build the tool
+* Run meson
+    '''meson . _build'''
+* Run ninja
+    '''ninja -C _build'''
+* Install files with ninja
+    '''sudo ninja install -C _build'''
+* Run Lembrame
+    '''com.antergos.Lembrame'''
 
 ### Resources
 * Gnome-Shell extension downloader: https://gist.github.com/thefekete/d0d7195783b216e0d67a6d56f19207ee

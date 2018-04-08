@@ -54,6 +54,8 @@ and allow you to reinstall your system with this data within our installer Cnchi
     '''sudo ninja install -C _build'''
 * Run Lembrame
     '''com.antergos.Lembrame'''
+* Uninstall with ninja
+    '''sudo ninja -C _build uninstall'''
 
 ### Resources
 * Gnome-Shell extension downloader: https://gist.github.com/thefekete/d0d7195783b216e0d67a6d56f19207ee

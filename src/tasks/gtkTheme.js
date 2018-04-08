@@ -58,7 +58,7 @@ const GtkThemeTask = new Lang.Class({
             name = out.toString().replace(/\n/gm, '');
             if (name !== '') {
                 Util.writeToFile(name, this._destFolder + '/package');
-                log('Saved GTK Theme package name. Movin on.');
+                log('Saved GTK Theme package name. Moving on.');
             } else {
                 log("Can't find a package for the current GTK Theme.");
             }

@@ -58,7 +58,7 @@ const IconsThemeTask = new Lang.Class({
             name = out.toString().replace(/\n/gm, '');
             if (name !== '') {
                 Util.writeToFile(name, this._destFolder + '/package');
-                log('Saved Icons Theme package name. Movin on.');
+                log('Saved Icons Theme package name. Moving on.');
             } else {
                 log("Can't find a package for the current Icons Theme.");
             }

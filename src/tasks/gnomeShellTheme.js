@@ -29,7 +29,10 @@ const GnomeShellThemeTask = new Lang.Class({
         this._destFolder = this._createFolder('gnome-shell-theme');
 
         this._getThemeName();
-        this._sync();
+
+        if(this._themeName !== '') {
+            this._sync();
+        }
     },
 
     _sync: function () {
@@ -58,7 +61,7 @@ const GnomeShellThemeTask = new Lang.Class({
             name = out.toString().replace(/\n/gm, '');
             if (name !== '') {
                 Util.writeToFile(name, this._destFolder + '/package');
-                log('Saved Theme package name. Movin on.');
+                log('Saved Theme package name. Moving on.');
             } else {
                 log("Can't find a package for the current Theme.");
             }

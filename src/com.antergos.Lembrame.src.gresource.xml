@@ -9,6 +9,7 @@
         <file>upload.js</file>
         <file>task.js</file>
         <file>tasks/run.js</file>
+        <file>tasks/displayManager.js</file>
         <file>tasks/background.js</file>
         <file>tasks/screensaver.js</file>
         <file>tasks/bashrc.js</file>

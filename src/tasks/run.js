@@ -7,6 +7,7 @@ const Util = imports.util;
 const Upload = imports.upload.Upload;
 
 // Import tasks
+const DisplayManagerTask = imports.tasks.displayManager.DisplayManagerTask;
 const BackgroundTask = imports.tasks.background.BackgroundTask;
 const ScreensaverTask = imports.tasks.screensaver.ScreensaverTask;
 const BashrcTask = imports.tasks.bashrc.BashrcTask;
@@ -36,6 +37,9 @@ const RunTask = new Lang.Class({
         this._createInitialFolders();
 
         // TODO: read from config file or gsettings which tasks to run to clean up code
+        // Detect Display Manager
+        let displayManagerTask = new DisplayManagerTask();
+
         // Copy .bashrc
         let bashrcTask = new BashrcTask();
 

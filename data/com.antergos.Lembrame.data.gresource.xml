@@ -4,6 +4,6 @@
         <file preprocess="xml-stripblanks">app-menu.ui</file>
         <file preprocess="xml-stripblanks">main.ui</file>
         <file>application.css</file>
-        <file>icons/logo.svg</file>
+        <file preprocess="xml-stripblanks">icons/logo.svg</file>
     </gresource>
 </gresources>

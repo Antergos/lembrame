@@ -67,11 +67,16 @@ const MainWindow = new Lang.Class({
     _about: function () {
         let aboutDialog = new Gtk.AboutDialog(
             {
-                authors: ['Alexandre Filgueira <alexfilgueira@antergos.com>'],
-                translator_credits: _("translator-credits"),
+                authors: [
+                    'Alexandre Filgueira <alexfilgueira@antergos.com>'
+                ],
+                artists: [
+                    'Logo based on the work of <a href="https://www.flaticon.com/authors/pixel-perfect">pixel-perfect</a> from Flaticon',
+                    'Alexandre Filgueira <alexfilgueira@antergos.com>'
+                ],
                 program_name: _("Lembrame"),
                 comments: _("Antergos official tool to synchronize settings"),
-                copyright: 'Copyright 2017 - Antergos',
+                copyright: 'Copyright 2018 - Antergos',
                 license_type: Gtk.License.GPL_2_0,
                 logo_icon_name: 'com.antergos.Lembrame',
                 version: pkg.version,

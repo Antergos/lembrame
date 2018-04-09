@@ -1,3 +1,5 @@
+subdir('icons')
+
 data_resource = gnome.compile_resources(app_id + '.data',
   app_id + '.data.gresource.xml',
   source_dir: '.',

@@ -31,13 +31,17 @@ app_configuration.set('PACKAGE_NAME', app_id)
 app_configuration.set('PACKAGE_VERSION', meson.project_version())
 app_configuration.set('prefix', get_option('prefix'))
 
-pkgdatadir = join_paths(get_option('datadir'), app_id)
 bindir = join_paths(get_option('prefix'), get_option('bindir'))
+datadir = join_paths(get_option('prefix'), get_option('datadir'))
+
+pkgdatadir = join_paths(get_option('datadir'), app_id)
+
 app_configuration.set('libdir', join_paths(get_option('prefix'), get_option('libdir')))
 app_configuration.set('pkgdatadir', pkgdatadir)
 app_configuration.set('bindir', bindir)
 
 
+icondir = join_paths(datadir, 'icons')
 
 
 subdir('src')

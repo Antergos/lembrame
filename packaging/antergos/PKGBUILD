@@ -9,16 +9,16 @@ arch=(x86_64)
 license=(GPL)
 depends=(gjs gtk3 python python-libnacl pacman dconf)
 makedepends=(gobject-introspection meson)
-source=("lembrame.zip")
-sha256sums=('df54548d551c0fdd5fdae72453780cf6a8df74316a60306075656a2be80ac660')
+source=("https://github.com/Antergos/lembrame/archive/v${pkgver}.tar.gz")
+sha256sums=('f1c7e57f9ec59d0a6527f01a1f93e6ecf2811372c0b2e0df54e478152bdddf9a')
 
 
 prepare() {
-  cd $pkgname
+  cd $pkgname-$pkgver
 }
 
 build() {
-  arch-meson $pkgname _build
+  arch-meson $pkgname-$pkgver _build
   ninja -C _build
 }
 

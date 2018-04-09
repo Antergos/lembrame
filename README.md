@@ -1,4 +1,9 @@
 # Lembrame
+
+<p align="center">
+	<img alt="Lembrame logo" src="data/icons/hicolor/512x512/apps/com.antergos.Lembrame.png" width="200">
+</p>
+
 Antergos official tool to save your current settings like installed apps, extensions, themes etc,
 and allow you to reinstall your system with this data within our installer Cnchi.
 

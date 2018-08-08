@@ -1,6 +1,6 @@
 project('antergos-lembrame', 'c',
   version: '0.1.0',
-  meson_version: '>= 0.36.0',
+  meson_version: '>= 0.38.0',
 )
 
 app_command = 'antergos-lembrame'

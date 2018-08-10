@@ -5,7 +5,7 @@ const Signals = imports.signals;
 
 const Util = imports.util;
 
-const apiPolicyURL = 'https://lz6fjo9m5d.execute-api.us-west-2.amazonaws.com/dev/request-policy';
+const apiPolicyURL = 'https://4f8m7i5wz4.execute-api.us-east-1.amazonaws.com/production/request-policy';
 
 const _session = new Soup.SessionAsync();
 
@@ -49,9 +49,9 @@ const Upload = new Lang.Class({
         const fileTypeQuery = file.query_info('standard::content-type,standard::size', 0, null);
         const fileMimeType = fileTypeQuery.get_content_type();
 
-        // Limit file size to 20MB
-        if (fileTypeQuery.get_size() > 20000000) {
-            callback(true, _('Your file exceeds the maximum size of 20Mb'))
+        // Limit file size to 50MB
+        if (fileTypeQuery.get_size() > 50000000) {
+            callback(true, _('Your file exceeds the maximum size of 50Mb'))
             return;
         }
 

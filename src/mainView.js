@@ -205,9 +205,30 @@ const MainView = new Lang.Class({
                 this._updateProgressBar(bytes, total);
             }.bind(this)
         );
+
+        uploader.connect('error',
+            function (obj, message) {
+                this._settings.set_string('id-generated', '');
+                this._settings.set_string('code-generated', '');
+
+                this._messageErrorDialog = new Gtk.MessageDialog ({
+                    modal: true,
+                    buttons: Gtk.ButtonsType.CLOSE,
+                    message_type: Gtk.MessageType.ERROR,
+                    text: message });
+
+                this._messageErrorDialog.connect ('response', Lang.bind(this, this._errorDialog_cb));
+                this._messageErrorDialog.show();
+            }.bind(this)
+        );
     },
 
     _updateProgressBar: function (bytes, total) {
         this.progressBar.set_fraction(bytes / total);
+    },
+
+    _errorDialog_cb: function (messagedialog, response_id) {
+        this.visible_child_name = 'non_generated_view';
+        this._messageErrorDialog.destroy();
     }
 });

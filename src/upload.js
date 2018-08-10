@@ -46,8 +46,14 @@ const Upload = new Lang.Class({
 
     _getPostMessageUpload: function (filename, callback) {
         const file = Gio.File.new_for_path(this._filename);
-        const fileTypeQuery = file.query_info('standard::content-type', 0, null);
+        const fileTypeQuery = file.query_info('standard::content-type,standard::size', 0, null);
         const fileMimeType = fileTypeQuery.get_content_type();
+
+        // Limit file size to 20MB
+        if (fileTypeQuery.get_size() > 20000000) {
+            callback(true, _('Your file exceeds the maximum size of 20Mb'))
+            return;
+        }
 
         file.load_contents_async(null, Lang.bind(this, function (f, res) {
             let contents;
@@ -120,13 +126,13 @@ const Upload = new Lang.Class({
 
     _upload: function () {
         this._getPostMessageUpload(this._filename, Lang.bind(this, function (error, message) {
-            let total = message.request_body.length;
-            let uploaded = 0;
-
             if (error) {
-                this.emit("error", error);
+                this.emit("error", message);
                 return;
             }
+
+            let total = message.request_body.length;
+            let uploaded = 0;
 
             let signalProgress = message.connect(
                 "wrote-body-data",
